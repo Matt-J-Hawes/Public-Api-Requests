@@ -49,15 +49,12 @@ gallerySection.insertAdjacentHTML('beforeend', users.join(''))
 
 
 const modalHtml = function(){ gallerySection.addEventListener('click', function(e){
-
 	if(e.target.tagName === 'DIV' && e.target.id !== 'gallery' ){
 		generateModal()
 	}
 })}
 
 function generateModal(data){
-          
-
      let html = data.map(person => 
 
 	       `<div class="modal">
