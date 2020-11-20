@@ -51,7 +51,6 @@ gallerySection.insertAdjacentHTML('beforeend', users.join(''))
 const modalHtml = function(){ gallerySection.addEventListener('click', function(e){
 
 	if(e.target.tagName === 'DIV' && e.target.id !== 'gallery' ){
-		console.log(e.target)
 		generateModal()
 	}
 })}
