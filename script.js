@@ -12,14 +12,33 @@
 //GLOBAL VARIABLES
 const body = document.querySelector('body')
 const gallerySection = document.getElementById('gallery')
-const card = gallerySection.querySelectorAll('.card')
+const modalSelection = document.createElement('div')
+modalSelection.className = 'modal-container'
 const errorMessage = document.createElement('h1')
+
+
 
 //FETCH API AND PARSE IT TO JSON - SUCCESS : FAILURE
 fetch('https://randomuser.me/api/?results=12')
 .then(response => response.json())
-.then(data => generateHTML(data.results))
-.then(() => modalHtml())
+.then(data => {
+
+	generateHTML(data.results)
+    generateModal(data.results)
+
+
+    let modal = modalSelection.querySelectorAll('.modal')
+    let cards = document.querySelectorAll('.card')
+    
+
+    for(let x = 0; x < cards.length; x++){
+    	cards[x].addEventListener('click', function(){
+    		gallerySection.appendChild(modalSelection)
+    	})
+    }
+})
+
+
 .catch(systemFail)
 
 //FUNCTION TO DISPLAY ERROR MESSAGE IF THERE IS A SIGNAL PROBLEM 
@@ -47,17 +66,12 @@ gallerySection.insertAdjacentHTML('beforeend', users.join(''))
 
 }
 
-
-const modalHtml = function(){ gallerySection.addEventListener('click', function(e){
-	if(e.target.tagName === 'DIV' && e.target.id !== 'gallery' ){
-		generateModal()
-	}
-})}
-
+//CREATE MODAL WINDOWS (HIDDEN BY DEFAULT)
 function generateModal(data){
-     let html = data.map(person => 
+     const html = data.map(person => 
 
-	       `<div class="modal">
+	       `
+	       <div class="modal">
 	            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
 	            <div class="modal-info-container">
 	                <img class="modal-img" src="${person.picture.large}" alt="profile picture">
@@ -65,14 +79,32 @@ function generateModal(data){
 	                <p class="modal-text">${person.email}</p>
 	                <p class="modal-text cap">${person.location.city}</p>
 	                <hr>
-	                <p class="modal-text">${person.number}</p>
-	                <p class="modal-text">${person.location.street.number} ${person.location.street.name}., ${person.location.city}, OR ${person.location.postcode}</p>
-	                <p class="modal-text">Birthday: ${person.dob.date}</p>
+	                <p class="modal-text">${person.phone}</p>
+	                <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city} OR ${person.location.postcode}</p>
+	                <p class="modal-text">Birthday: ${person.dob.date.slice(5,7)}-${person.dob.date.slice(8,10)}-${person.dob.date.slice(0,4)}</p>
 	            </div>
 	        </div>`)
 
-     body.insertAdjacentHTML('beforeend', html)
-       
+     modalSelection.insertAdjacentHTML('beforeend', html)
+     
+    }
 
-}
+
+//EVENT-LISTENER TO REMOVE MODEL WINDOW 
+modalSelection.addEventListener('click', function(e){
+	gallerySection.removeChild(modalSelection)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
