@@ -11,10 +11,10 @@
 
 //GLOBAL VARIABLES
 const body = document.querySelector('body')
+const errorMessage = document.createElement('h1')
 const gallerySection = document.getElementById('gallery')
 const modalSelection = document.createElement('div')
 modalSelection.className = 'modal-container'
-const errorMessage = document.createElement('h1')
 
 
 //FETCH API AND PARSE IT TO JSON - SUCCESS : FAILURE
@@ -55,9 +55,7 @@ gallerySection.insertAdjacentHTML('beforeend', users.join('')) }
 //CREATE MODAL WINDOWS (HIDDEN BY DEFAULT)
 //ITERATE OVER CARDS AND DISPLAY MODAL WINDOW IF CARD MATCHES
 function generateModal(data){
-	let modal = modalSelection.querySelectorAll('.modal')
-    let cards = document.querySelectorAll('.card')
-    
+    let cards = document.querySelectorAll('.card')   
     for(let x = 0; x < cards.length; x++){
     	cards[x].addEventListener('click', function(e){
     		if(cards[x].html === data.innerHTML){
@@ -72,8 +70,8 @@ function generateModal(data){
 	                <p class="modal-text cap">${data[x].location.city}</p>
 	                <hr>
 	                <p class="modal-text">${data[x].phone}</p>
-	                <p class="modal-text">${data[x].location.street.number} ${data[x].location.street.name}, ${data[x].location.city} OR ${data[x].location.postcode}</p>
-	                <p class="modal-text">Birthday: ${data[x].dob.date.slice(5,7)}-${data[x].dob.date.slice(8,10)}-${data[x].dob.date.slice(0,4)}</p>
+	                <p class="modal-text">${data[x].location.street.number} ${data[x].location.street.name}, ${data[x].location.city} ${data[x].location.postcode}</p>
+	                <p class="modal-text">Birthday: ${data[x].dob.date.slice(5,7)}/${data[x].dob.date.slice(8,10)}/${data[x].dob.date.slice(2,4)}</p>
 	            </div>
 	        </div>`)   }})}}
 

@@ -40,7 +40,6 @@ header h1 {
     color: white;
     margin-top: 35px;
     letter-spacing: 2px;
-    font-family:sans-serif;
     font-weight: 1000
 
 }
@@ -163,8 +162,8 @@ header h1 {
     top: 15px;
     right: 15px;
     cursor: pointer;
-    color: black;
-    background: #FDFD96;
+    color: white;
+    background: black;
     outline: none;
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
