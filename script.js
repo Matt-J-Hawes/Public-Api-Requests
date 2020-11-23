@@ -167,17 +167,17 @@ searchContainer.innerHTML =
 searchContainer.addEventListener('click', function(e){
 	let cards = document.querySelectorAll('.card')  
 	const searchInput = searchContainer.querySelector('.search-input')
-	if(e.target.className === 'search-submit'){ 
+		if(e.target.className === 'search-submit'){ 
 		for(let x = 0; x < cards.length; x++){
 	const h3 = cards[x].querySelector('h3')
-	if(!h3.textContent.toUpperCase().includes(searchInput.value.toUpperCase())){
+		if(!h3.textContent.toUpperCase().includes(searchInput.value.toUpperCase())){
 		cards[x].style.display = 'none'}
 		else if(searchInput.value === ''){
 		cards[x].style.display = 'inherit'    }}} 
 	    for(let x = 0; x < cards.length; x++){
-  	if(e.target.className === 'cancel-submit'){
+	  	if(e.target.className === 'cancel-submit'){
   		cards[x].style.display = 'inherit'
-  		searchInput.value = '' }}})
+  		searchInput.value = '' }}}) 
 
 
    
