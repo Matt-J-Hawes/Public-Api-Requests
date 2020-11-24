@@ -10,37 +10,36 @@
 
 
 //GLOBAL VARIABLES
-const body = document.querySelector('body')
-const errorMessage = document.createElement('h1')
-const gallerySection = document.getElementById('gallery')
-const modalSelection = document.createElement('div')
-const buttonPrev = document.createElement('button')
-const buttonNext = document.createElement('button')
-const searchContainer = document.querySelector('.search-container')
-buttonPrev.className = 'modal-prev'
-buttonNext.className = 'modal-next'
-modalSelection.className = 'modal-container'
-buttonPrev.innerHTML = "Prev"
-buttonNext.innerHTML = "Next"
+const body = document.querySelector('body');
+const errorMessage = document.createElement('h1');
+const gallerySection = document.getElementById('gallery');
+const modalSelection = document.createElement('div');
+const buttonPrev = document.createElement('button');
+const buttonNext = document.createElement('button');
+const searchContainer = document.querySelector('.search-container');
+buttonPrev.className = 'modal-prev';
+buttonNext.className = 'modal-next';
+modalSelection.className = 'modal-container';
+buttonPrev.innerHTML = "Prev";
+buttonNext.innerHTML = "Next";
 
 
 //FETCH API AND PARSE IT TO JSON - SUCCESS : FAILURE
 fetch('https://randomuser.me/api/?results=12&nat=us')
 .then(response => response.json())
 .then(data => {
-	generateHTML(data.results)
-    generateModal(data.results)
-    nextModal(data.results)
-    prevModal(data.results)
+	generateHTML(data.results);
+    generateModal(data.results);
+    nextPrevModal(data.results);
 })
-.catch(systemFail)
+.catch(systemFail);
 
 
 //FUNCTION TO DISPLAY ERROR MESSAGE IF THERE IS A SIGNAL PROBLEM 
 //FUNCTION CREATED EXTERNALLY FOR POSSIBLE REUSE
 function systemFail(error){
-	gallerySection.appendChild(errorMessage)
-	errorMessage.innerHTML = "Trouble connecting with API! Please try again later."
+	gallerySection.appendChild(errorMessage);
+	errorMessage.innerHTML = "Trouble connecting with API! Please try again later.";
 	console.log(error, "Trouble connecting with API") }
 
 
@@ -53,7 +52,7 @@ const users = data.map(user =>
 			<img class="card-img" src="${user.picture.large}" alt="profile picture">
 			</div>
 			<div class="card-info-container">
-			<h3 id="name" class="card-name cap">${user.name.title} ${user.name.first} ${user.name.last}</h3>
+			<h3 id="name" class="card-name cap">${user.name.first} ${user.name.last}</h3>
 			<p class="card-text">${user.email}</p>
 			<p class="card-text cap">${user.location.city}, ${user.location.state}</p>
 		</div></div>`)
@@ -63,11 +62,11 @@ gallerySection.insertAdjacentHTML('beforeend', users.join('')) }
 
 //FORMAT PHONE NUMBER CORRECTLY - (XXX) XXX-XXXX
 function phoneNumReplace(user){
-	const phoneReplace = user.split('').filter(y => y!== '-' && y!== '(' && y !== ')').join('')
-	const phoneOne = `(${phoneReplace.slice(0,3)})`
-	const phoneTwo = `${phoneReplace.slice(4-7)}`
-	const phoneThree = `${phoneReplace.slice(8-12)}`
-	const phone = `${phoneOne} ${phoneTwo}-${phoneThree}`
+	const phoneReplace = user.split('').filter(y => y!== '-' && y!== '(' && y !== ')').join('');
+	const phoneOne = `(${phoneReplace.slice(0,3)})`;
+	const phoneTwo = `${phoneReplace.slice(4-7)}`;
+	const phoneThree = `${phoneReplace.slice(8-12)}`;
+	const phone = `${phoneOne} ${phoneTwo}-${phoneThree}`;
     return phone  }
 
 
@@ -113,45 +112,46 @@ function nextPrevModalHtml(user){
 			<p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city} ${user.location.postcode}</p>
 			<p class="modal-text">Birthday: ${user.dob.date.slice(5,7)}/${user.dob.date.slice(8,10)}/${user.dob.date.slice(2,4)}</p>
 		</div></div>`
-	return html       }
+	return html       };
 
 
-//DISPLAY THE NEXT MODAL 
-function nextModal(data, index){
-	index = 0;
+//DISPLAY THE NEXT AND PREV MODAL
+function nextPrevModal(data, index){
+	let cards = document.querySelectorAll('.card');   
+	for(let x = 0; x < cards.length; x++){
+		cards[x].addEventListener('click', function(){			  
+		index = data.indexOf(data[x])   })}       
 	modalSelection.addEventListener('click', function(e){
-		if(e.target.className === 'modal-next'){
-		index += 1
-		if(index <= data.length){
-		modalSelection.innerHTML = ''
-		body.appendChild(modalSelection)
-		modalSelection.insertAdjacentHTML('beforeend', nextPrevModalHtml(data[index]))
-	    modalSelection.appendChild(buttonPrev)
-		modalSelection.appendChild(buttonNext) }}		 
-		if(index >= data.length - 1){
-		index = -1  }})}
 
-
-//DISPLAY THE PREV MODAL
-function prevModal(data, index){
-	index = data.length;
-	modalSelection.addEventListener('click', function(e){
+		//EVENT LISTENER FOR PREVIOUS MODAL
 		if(e.target.className === 'modal-prev'){
-		index -= 1
-		if(index <= data.length){
+		index --;
+		if(index <= -1){
+		index = -1 }
+		else if(index <= data.length){
 		modalSelection.innerHTML = ''
-		body.appendChild(modalSelection)
-		modalSelection.insertAdjacentHTML('beforeend', nextPrevModalHtml(data[index]))
-	    modalSelection.appendChild(buttonPrev)
-		modalSelection.appendChild(buttonNext) }}		 
-	    if(index == 0){
-		index = data.length }})}
+		body.appendChild(modalSelection);
+		modalSelection.insertAdjacentHTML('beforeend', nextPrevModalHtml(data[index]));
+	    modalSelection.appendChild(buttonPrev);
+		modalSelection.appendChild(buttonNext)}};
 
+		//EVENT LISTENER FOR NEXT MODAL
+		if(e.target.className === 'modal-next'){
+		index ++;
+		if(index >= data.length){
+		index = -1  }
+		else if(index <= data.length){
+		modalSelection.innerHTML = ''
+		body.appendChild(modalSelection);
+		modalSelection.insertAdjacentHTML('beforeend', nextPrevModalHtml(data[index]))
+	    modalSelection.appendChild(buttonPrev);
+		modalSelection.appendChild(buttonNext) }}	})};		 
+	  
 
 //EVENT-LISTENER TO REMOVE MODEL WINDOW 
 modalSelection.addEventListener('click', function(e){
-	body.removeChild(modalSelection)
-	modalSelection.innerHTML = '' })
+		body.removeChild(modalSelection)
+		modalSelection.innerHTML = '' })
 
 
 //SET HTML FOR SEARCH CONTAINER
@@ -165,19 +165,16 @@ searchContainer.innerHTML =
 
 //FILTER OUT EMPLOYEES WHO DO NOT MATCH SEARCH INPUT VALUE
 searchContainer.addEventListener('click', function(e){
-	let cards = document.querySelectorAll('.card')  
-	const searchInput = searchContainer.querySelector('.search-input')
+	let cards = document.querySelectorAll('.card');  
+	const searchInput = searchContainer.querySelector('.search-input');
 		if(e.target.className === 'search-submit'){ 
 		for(let x = 0; x < cards.length; x++){
-	const h3 = cards[x].querySelector('h3')
+	const h3 = cards[x].querySelector('h3');
 		if(!h3.textContent.toUpperCase().includes(searchInput.value.toUpperCase())){
 		cards[x].style.display = 'none'}
 		else if(searchInput.value === ''){
-		cards[x].style.display = 'inherit'    }}} 
+		cards[x].style.display = 'inherit';    }}} 
 	    for(let x = 0; x < cards.length; x++){
 	  	if(e.target.className === 'cancel-submit'){
   		cards[x].style.display = 'inherit'
   		searchInput.value = '' }}}) 
-
-
-   
