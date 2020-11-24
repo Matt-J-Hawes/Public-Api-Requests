@@ -143,7 +143,7 @@ function nextPrevModal(data, index){
 		else if(index <= data.length){
 		modalSelection.innerHTML = ''
 		body.appendChild(modalSelection);
-		modalSelection.insertAdjacentHTML('beforeend', nextPrevModalHtml(data[index]))
+		modalSelection.insertAdjacentHTML('beforeend', nextPrevModalHtml(data[index]));
 	    modalSelection.appendChild(buttonPrev);
 		modalSelection.appendChild(buttonNext) }}	})};		 
 	  
