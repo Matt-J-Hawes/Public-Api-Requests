@@ -163,16 +163,14 @@ modalSelection.addEventListener('click', function(e){
 searchContainer.innerHTML = 
 		`<form action="#" method="get">
 			<input type="search" id="search-input" class="search-input" placeholder="Search...">
-			<input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-			<input type="submit" value= '&#x274C' id="cancel-submit" class="cancel-submit">
 		</form>`
 
 //FILTER OUT EMPLOYEES WHO DO NOT MATCH SEARCH INPUT VALUE
-searchContainer.addEventListener('click', function(e){
+searchContainer.addEventListener('keyup', function(e){
 	let cards = document.querySelectorAll('.card');  
 	const searchInput = searchContainer.querySelector('.search-input');
 	    //IF SEARCH BUTTON IS CLICKED
-		if(e.target.className === 'search-submit'){ 
+		if(e.target === searchInput){ 
 			for(let x = 0; x < cards.length; x++){
 				const h3 = cards[x].querySelector('h3');
 		if(!h3.textContent.toUpperCase().includes(searchInput.value.toUpperCase())){
@@ -183,11 +181,4 @@ searchContainer.addEventListener('click', function(e){
 		};
 	  };
 	}; 
-	   //IF CANCEL BUTTON IS CLICKED    
-	  	if(e.target.className === 'cancel-submit'){
-	  		for(let x = 0; x < cards.length; x++){
-		  		cards[x].style.display = 'inherit'
-		  		searchInput.value = '' 
-	  };
-	};
  }); 
