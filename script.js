@@ -23,7 +23,7 @@ buttonPrev.innerHTML = "Prev";
 buttonNext.innerHTML = "Next";
 
 //FETCH API AND PARSE IT TO JSON - SUCCESS : FAILURE
-fetch('https://randomuser.me/api/?results=12&nat=us')
+fetch('https://randomuser.me/api/?results=18&nat=us')
 .then(response => response.json())
 .then(data => {
 	generateHTML(data.results);

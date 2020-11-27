@@ -1,4 +1,4 @@
-App fetches 12 random employees (us nationality) from an api. 
+App fetches 18 random employees (us nationality) from an api. 
 
 You can click on an employee to see more information about them.
 
@@ -8,5 +8,5 @@ I added a toggle method to switch back and forth between employees.
 
 A search bar has been dynamically added to the page to filter employees by name.
 
-I have changed the colour scheme on the app to a yellow and blue contrast. I also dynamically added an 'X' on the search bar to clear the input value and show all employees. 
+Load different employees button reloads page to retrieve a new and random set of employees
 
