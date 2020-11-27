@@ -161,7 +161,8 @@ modalSelection.addEventListener('click', function(e){
 
 //SET HTML FOR SEARCH CONTAINER
 searchContainer.innerHTML = 
-		`<form action="#" method="get">
+		`<button class ='reload-button'>Load Different Employees</button>
+		<form action="#" method="get">
 			<input type="search" id="search-input" class="search-input" placeholder="Search...">
 		</form>`
 
@@ -175,10 +176,17 @@ searchContainer.addEventListener('keyup', function(e){
 				const h3 = cards[x].querySelector('h3');
 		if(!h3.textContent.toUpperCase().includes(searchInput.value.toUpperCase())){
 				cards[x].style.display = 'none'
-	  }
+	    }
 		else if(searchInput.value === ''){
 				cards[x].style.display = 'inherit';  
 		};
 	  };
 	}; 
  }); 
+
+//LOAD A NEW SET OF STUDENTS ON BUTTON CLICK
+searchContainer.addEventListener('click', e => {
+	  if(e.target.className === 'reload-button'){
+	  	window.location.reload()
+	  };
+});

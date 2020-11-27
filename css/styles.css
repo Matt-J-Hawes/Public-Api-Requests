@@ -16,17 +16,21 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: linear-gradient(to right, #06beb6, #48b1bf);
+    background: #F5F5F5;
 }
 
 header {
     padding: 15px 5px 5px;
+    background: #F5F5F5;
+    text-align: left;
 }
 
 header p {
     font-size: 18px;
-    color: white;
-    letter-spacing: 1px
+    color: #363D5B;
+    letter-spacing: 1px;
+    font-family: sans-serif;
+    letter-spacing: 2px;
 }
 
 .header-inner-container {
@@ -36,55 +40,36 @@ header p {
 }
 
 header h1 {
-    font-size: 1.75em;
-    color: white;
+    font-size: 2.5em;
+    color: #363D5B;
     margin-top: 35px;
     letter-spacing: 2px;
-    font-weight: 1000
+    font-family: sans-serif;
+    font-weight: 1000;
+    letter-spacing: -2.5px
+}
 
+header button{
+    height: 30px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    font-weight: 100;   
 }
 
 .search-input {
     padding: 0.2rem 1rem;
-    border: 1px solid rgba(200, 200, 200, 0.9);
+    border: 1px solid #363D5B;
     border-radius: 0.25rem 0 0 0.25rem ;
     max-width: 20rem;
     transition: .4s ease-out;
     outline: none;
+    margin-bottom:30px;
+    margin-top: -50px;
 }
 
 .search-input:active, .search-input:hover, .search-input:focus {
-    border: 1px solid rgba(50, 50, 50, 0.9);
-}
-
-.search-submit {
-    cursor: pointer;
-    height: 30px;
-    background: white;
-    border-radius: 0 0.25rem 0.25rem 0;
-    border: 1px solid rgba(200, 200, 200, 0.9);
-    transition: .4s ease-out;
-    outline: none;
-}
-
-.search-submit:active, .search-submit:hover, .search-submit:focus {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(50, 50, 50, 0.9);
-}
-
-.cancel-submit {
-    cursor: pointer;
-    height: 30px;
-    background: white;
-    border-radius: 0 0.25rem 0.25rem 0;
-    border: 1px solid rgba(200, 200, 200, 0.9);
-    transition: .4s ease-out;
-    outline: none;
-    color: black;
-}
-
-.cancel-submit:active, .cancel-submit:hover, .cancel-submit:focus {
-    background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(50, 50, 50, 0.9);
 }
 
@@ -113,11 +98,12 @@ header h1 {
     max-width: 360px;
     margin: 10px 10px 20px;
     padding: 10px;
-    background: #FDFD96;
+    background: #363D5B;
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 5px solid white;
     transition: .4s ease-out;
     overflow: hidden;
+    color:white;
 }
 
 .card-img {
@@ -132,6 +118,7 @@ header h1 {
 
 .card-name {
     margin: 20px auto 0;
+    color: white
 }
 
 .card-text {
@@ -139,6 +126,7 @@ header h1 {
     color: rgba(50, 50, 50, 0.7);
     margin: 7px auto;
     transition: .4s ease-out;
+    color: white
 }
 
 .cap {
@@ -166,7 +154,7 @@ header h1 {
     min-height: 415px;
     margin: 10px auto auto;
     padding-bottom: 15px;
-    background: linear-gradient(to right, #06beb6, #48b1bf);
+    background: #363D5B;
     color: white;
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
@@ -178,8 +166,8 @@ header h1 {
     top: 15px;
     right: 15px;
     cursor: pointer;
-    color: white;
-    background: #48b1bf;
+    color: #363D5B;
+    background: #F5F5F5;
     outline: none;
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
@@ -235,10 +223,12 @@ header h1 {
   }
   
   .modal-next, .modal-prev {
-    background: #FDFD96;
+    background: #F5F5F5;
+    color: #363D5B;
     outline: none;
     border: 1px solid black;
     cursor: pointer;
+    font-size: 18px
 
   }
 
@@ -281,13 +271,29 @@ header h1 {
 
 @media (min-width: 1024px) {
 
+    .card:hover .card-name {
+        color: #363D5B
+    }
+
+    .modal-close-btn:hover{
+        background:#363D5B;
+        color: #F5F5F5
+
+    }
+
+    .modal-next:hover, .modal-prev:hover{
+        background: #363D5B;
+        color: #F5F5F5;
+        transform: scale(1.05);
+    }
+
     .card:hover {
-        background: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(50, 50, 50, 0.9);
+        background: #F5F5F5;
+        border: 1px solid #363D5B ;
     }
 
     .card:hover .card-text {
-        color: rgba(25, 25, 25, 1); 
+        color: #363D5B; 
     }
 
     .btn:hover {
