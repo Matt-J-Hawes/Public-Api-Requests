@@ -170,7 +170,7 @@ header button{
     background: #F5F5F5;
     outline: none;
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid #F5F5F5;
 }
 
 .modal-img {
