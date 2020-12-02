@@ -16,14 +16,18 @@ const modalSelection = document.createElement('div');
 const buttonPrev = document.createElement('button');
 const buttonNext = document.createElement('button');
 const searchContainer = document.querySelector('.search-container');
+const noResultsFound = document.createElement('h3');
 buttonPrev.className = 'modal-prev';
 buttonNext.className = 'modal-next';
 modalSelection.className = 'modal-container';
 buttonPrev.innerHTML = "Prev";
 buttonNext.innerHTML = "Next";
+noResultsFound.innerHTML = 'No results found! Please try again.'
+body.appendChild(noResultsFound)
+noResultsFound.style.display = 'none'
 
 //FETCH API AND PARSE IT TO JSON - SUCCESS : FAILURE
-fetch('https://randomuser.me/api/?results=18&nat=us')
+fetch('https://randomuser.me/api/?results=15&nat=us')
 .then(response => response.json())
 .then(data => {
 	generateHTML(data.results);
@@ -85,7 +89,9 @@ function generateModal(data){
 			            <p class="modal-text cap">${data[x].location.city}</p>
 			            <hr>
 			            <p class="modal-text">${phoneNumReplace(data[x].phone)}</p>
-			            <p class="modal-text">${data[x].location.street.number} ${data[x].location.street.name}, ${data[x].location.city} ${data[x].location.postcode}</p>
+			            <p class="modal-text">
+			                     ${data[x].location.street.number} ${data[x].location.street.name}, 
+			                     ${data[x].location.city} ${data[x].location.postcode} </p>
 			            <p class="modal-text">Birthday: ${data[x].dob.date.slice(5,7)}/${data[x].dob.date.slice(8,10)}/${data[x].dob.date.slice(2,4)}</p>
 			        </div></div>`)  
 				 modalSelection.appendChild(buttonPrev)
@@ -147,7 +153,7 @@ function nextPrevModal(data, index){
 				body.appendChild(modalSelection);
 				modalSelection.insertAdjacentHTML('beforeend', nextPrevModalHtml(data[index]));
 			    modalSelection.appendChild(buttonPrev);
-				modalSelection.appendChild(buttonNext) 
+				modalSelection.appendChild(buttonNext); 
 			};
 		};	
 	});
@@ -155,8 +161,10 @@ function nextPrevModal(data, index){
 	  
 //EVENT-LISTENER TO REMOVE MODEL WINDOW 
 modalSelection.addEventListener('click', function(e){
+	if(e.target.className !== 'modal-info-container'){
 		body.removeChild(modalSelection)
 		modalSelection.innerHTML = '' 
+	}
 });
 
 //SET HTML FOR SEARCH CONTAINER
@@ -168,18 +176,25 @@ searchContainer.innerHTML =
 
 //FILTER OUT EMPLOYEES WHO DO NOT MATCH SEARCH INPUT VALUE
 searchContainer.addEventListener('keyup', function(e){
-	let cards = document.querySelectorAll('.card');  
+	let cards = document.querySelectorAll('.card'); 
+	let cardsArr = [] 
 	const searchInput = searchContainer.querySelector('.search-input');
 	    //IF SEARCH BUTTON IS CLICKED
 		if(e.target === searchInput){ 
 			for(let x = 0; x < cards.length; x++){
-				const h3 = cards[x].querySelector('h3');
-		if(!h3.textContent.toUpperCase().includes(searchInput.value.toUpperCase())){
+				const names = cards[x].querySelector('h3');
+		if(!names.textContent.toUpperCase().includes(searchInput.value.toUpperCase())){
 				cards[x].style.display = 'none'
+				cardsArr.push(cards[x])
 	    }
 		else if(searchInput.value === ''){
 				cards[x].style.display = 'inherit';  
 		};
+        if(cardsArr.length === 15){
+	        	noResultsFound.style.display = 'block'
+        } else {
+        	noResultsFound.style.display = 'none'
+        };
 	  };
 	}; 
  }); 
